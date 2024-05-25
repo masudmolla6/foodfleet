@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLoaderData } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const Review = () => {
-    const food = useLoaderData();
+  
+  const { user } = useContext(AuthContext);
+  const food = useLoaderData();
   const { _id, name, picture, ratting, price, Description } = food;
   
   const handleSubmit = (event) => {
@@ -14,8 +18,33 @@ const Review = () => {
     const opinion = form.opinion.value;
 
     console.log(name, email, photoUrl, opinion);
+    const review = { name, email, photoUrl, opinion };
+
+    fetch(`http://localhost:5000/addreview`, {
+      method: "POST",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(review)
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        if (data.insertedId) {
+          Swal.fire("Your Review is Added Successfully.");
+          form.reset();
+        }
+    })
 
   }
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/reviews`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  },[])
 
     return (
       <div>
