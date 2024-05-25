@@ -1,10 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../provider/AuthProvider';
+import ReviewCard from './ReviewCard';
 
 const Review = () => {
-  
+  const [reviews, setReviews] = useState([]);
   const { user } = useContext(AuthContext);
   const food = useLoaderData();
   const { _id, name, picture, ratting, price, Description } = food;
@@ -43,11 +44,17 @@ const Review = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setReviews(data)
       });
   },[])
 
     return (
       <div>
+        <div>
+          {
+            reviews.map(review=> <ReviewCard key={review._id} review={review}></ReviewCard>)
+          }
+        </div>
         <div>
           <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col w-full">
