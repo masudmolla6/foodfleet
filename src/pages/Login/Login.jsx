@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 import { Result } from 'postcss';
 
 const Login = () => {
     const { user, logIn } = useContext(AuthContext);
-    console.log(user);
+  console.log(user);
+
+  
     const handleSubmit = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -17,8 +19,8 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                form.reset();
+              console.log(user);
+              form.reset();        
             })
             .catch(error => {
             console.error(error);

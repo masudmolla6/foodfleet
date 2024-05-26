@@ -20,7 +20,7 @@ const Service = ({ service }) => {
             <p>{Description.slice(0,100)}...</p>
           <div className="card-actions justify-end">
             <Link to={`/details/${_id}`} className="badge badge-outline hover:bg-cyan-400 hover:text-white">Details</Link>
-            <Link to={`/reviews/${_id}`} className="badge badge-outline hover:bg-cyan-400 hover:text-white">Reviews</Link>
+            <Link to={`/reviews/${_id}`} className="badge badge-outline hover:bg-cyan-400 hover:text-white">Add Review</Link>
           </div>
         </div>
       </div>
